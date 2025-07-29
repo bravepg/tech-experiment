@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script>
+  const eventSource = new EventSource('http://localhost:3000/sse-endpoint');
+
+  // 监听默认消息
+  eventSource.onmessage = event => {
+    console.log('Received message:', event.data);
+  };
+
+  // 监听特定事件类型
+  eventSource.addEventListener('customEvent', event => {
+    console.log('Received customEvent:', event.data);
+  });
+
+  // 处理连接错误
+  eventSource.onerror = () => {
+    console.log('Connection error, attempting to reconnect...');
+  };
+</script>
